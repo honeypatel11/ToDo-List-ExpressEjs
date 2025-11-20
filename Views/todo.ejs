@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/Bootstrap.min.css">
+</head>
+
+<body>
+
+    <section>
+        <h1 class=" " align="center">Task List</h1>
+        <form action="/add-task" method="post" align="center">
+            <div>
+                <label for="id">No</label>
+                <input type="id" name="id" id="no">
+            </div>
+            <br>
+            <div class="mt-3">
+                <label for="task">Add Task</label>
+                <input type="text" name="task" id="task">
+            </div>
+            <br>
+            <div class="">
+                <label for="priority" class="">priority</label>
+                <select name="priority" id="priority" class="p-1">
+                    <option value="">Select Any</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            <br>
+            <div>
+                <button>submit</button>
+            </div>
+        </form>
+
+
+        <br>
+        <br>
+        <div>
+            <table class="table" align="center" border="1">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Task</th>
+                        <th>Priority</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% TaskList.map((task)=> { %>
+                        <tr>
+                               
+                            <td>
+                               <%= task.id %>                              
+                            </td> 
+                            
+                            <td>
+                                <%= task.task %>
+                            </td>
+                            <td>
+                                <%= task.priority %>
+                            </td>
+                            <td>
+                                <a href="/delete-task?taskId=<%= task.id %>">Delete</a>
+                                <a href="/edit-task?taskId=<%= task.id %>">Edit</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+
+            </table>
+        </div>
+    </section>
+
+</body>
+
+</html>
