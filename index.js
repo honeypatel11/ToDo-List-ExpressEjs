@@ -16,8 +16,8 @@ app.get("/", (req, res) => {
 
 app.post("/add-task", (req, res) => {
     let newTask = req.body;
-    newTask.id = req.body.id;  
     TaskList.push(newTask);
+    
     return res.redirect("/");
 });
 
@@ -38,7 +38,12 @@ app.get("/edit-task", (req, res) => {
 
 app.post("/edit-task", (req, res) => {
     let editId = req.body.id;
-    let editIdx = TaskList.findIndex(t => t.id == editId); 
+    let editIdx = TaskList.findIndex(t => t.id == editId);
+    
+    TaskList[editIdx] = {
+        ...req.body,
+        id:TaskList[editIdx].id
+    } 
     return res.redirect("/");
 });
 
