@@ -4,82 +4,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Task</title>
     <link rel="stylesheet" href="/assets/css/Bootstrap.min.css">
 </head>
 
-<body>
+<body class="bg-primary bg-opacity-25">
 
-    <section>
-        <h1 class="" align="center">Edit Task List</h1>
+    <section class="container py-5 ">
 
+        <h1 class="text-center fw-bold text-primary mb-4">Edit Task List</h1>
 
-        <form action="/edit-task" method="post" align="center">
+        <form action="/edit-task" method="post"
+            class="p-4 rounded-4 shadow-lg bg-white mx-auto border border-2 border-light"
+            style="max-width: 520px; backdrop-filter: blur(6px);">
 
+            
 
             <input type="hidden" name="id" value="<%= task.id %>">
 
-            <br>
-            <div class="mt-3">
-                <label for="task">Add Task</label>
-                <input type="text" name="task" id="task" value="<%= task.task %>">
-            </div>
-            <br>
-
-            <div>
-                <label for="priority" class="">priority</label>
-
-                <select name="priority" id="priority" class="p-1">
-                    <option value="">Select Any</option>
-
-
-                    <option value="High" <%=task.priority=="High" ? "selected" : "" %>>High</option>
-                    <option value="Medium" <%=task.priority=="Medium" ? "selected" : "" %>>Medium</option>
-                    <option value="Low" <%=task.priority=="Low" ? "selected" : "" %>>Low</option>
-                </select>
+            
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Task Name</label>
+                <div class="input-group">
+                    <span class="input-group-text rounded-start-pill bg-light fw-bold">
+                        ✏️
+                    </span>
+                    <input type="text" name="task" id="task" value="<%= task.task %>"
+                        class="form-control form-control-lg rounded-end-pill border-1">
+                </div>
             </div>
 
-            <br>
-            <div>
-                <button>Update</button>
+            
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Priority Level</label>
+                <div class="input-group">
+                    <span class="input-group-text rounded-start-pill bg-light fw-bold">⚡</span>
+                    <select name="priority" id="priority" class="form-select form-select-lg rounded-end-pill border-1">
+                        <option value="">Select any</option>
+                        <option value="High" <%=task.priority=="High" ? "selected" : "" %>>High</option>
+                        <option value="Medium" <%=task.priority=="Medium" ? "selected" : "" %>>Medium</option>
+                        <option value="Low" <%=task.priority=="Low" ? "selected" : "" %>>Low</option>
+                    </select>
+                </div>
             </div>
+           
+            <button class="btn btn-lg w-100 rounded-pill text-white fw-semibold"
+                style="background: linear-gradient(135deg, #00b09b, #96c93d);">
+                Update Task
+            </button>
         </form>
 
-        <br><br>
+        <div class="mt-5">
+            <div class="table-responsive shadow rounded-4 bg-white">
+                <table class="table table-hover table-borderless text-center align-middle mb-0">
 
-        <div>
-            <table class="table" align="center" border="1">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>Task</th>
-                        <th>Priority</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <% TaskList.map((task)=> { %>
+                    <thead class="bg-primary text-white">
                         <tr>
-                            <td>
-                                <%= task.id %>
-                            </td>
-                            <td>
-                                <%= task.task %>
-                            </td>
-                            <td>
-                                <%= task.priority %>
-                            </td>
-                            <td>
-                                <a href="/delete-task?taskId=<%= task.id %>">Delete</a>
-                                <a href="/edit-task?taskId=<%= task.id %>">Edit</a>
-                            </td>
+                            <th>NO</th>
+                            <th>Task</th>
+                            <th>Priority</th>
+                            <th>Actions</th>
                         </tr>
-                        <% }) %>
-                </tbody>
+                    </thead>
 
-            </table>
+                    <tbody>
+                        <% TaskList.map((task)=> { %>
+                            <tr class="border-bottom">
+                                <td class="fw-bold">
+                                    <%= task.id %>
+                                </td>
+                                <td>
+                                    <%= task.task %>
+                                </td>
+
+                                <td>
+                                    <% if(task.priority==="High" ){ %>
+                                        <span class="badge bg-danger rounded-pill px-3 py-2">High</span>
+                                        <% } else if(task.priority==="Medium" ){ %>
+                                            <span
+                                                class="badge bg-warning text-dark rounded-pill px-3 py-2">Medium</span>
+                                            <% } else { %>
+                                                <span class="badge bg-success rounded-pill px-3 py-2">Low</span>
+                                                <% } %>
+                                </td>
+
+                                <td>
+                                    <a href="/delete-task?taskId=<%= task.id %>"
+                                        class="btn btn-sm btn-outline-danger rounded-pill px-3 me-2">Delete</a>
+
+                                    <a href="/edit-task?taskId=<%= task.id %>"
+                                        class="btn btn-sm btn-outline-primary rounded-pill px-3">Edit</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+
+                </table>
+            </div>
         </div>
+
     </section>
 
 </body>
